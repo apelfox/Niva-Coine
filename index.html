@@ -54,6 +54,7 @@
             max-width: 900px;
             margin: 0 auto;
             animation: fadeIn 0.5s ease-out;
+            padding-bottom: 100px; /* Sell button space */
         }
         
         @keyframes fadeIn {
@@ -61,7 +62,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
         
-        /* User Profile Section - Updated */
+        /* User Profile Section - Fixed Layout */
         .user-profile {
             background: var(--bg-card);
             backdrop-filter: blur(10px);
@@ -72,6 +73,9 @@
             border: 1px solid var(--glass-border);
             position: relative;
             overflow: hidden;
+            display: flex;
+            align-items: center;
+            gap: 20px;
         }
         
         .user-profile::before {
@@ -85,56 +89,36 @@
             border-radius: 16px 16px 0 0;
         }
         
-        .profile-row {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-        
         .profile-pic-container {
             position: relative;
             flex-shrink: 0;
         }
         
         .profile-pic {
-            width: 100px;
-            height: 100px;
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
             object-fit: cover;
-            border: 4px solid var(--accent);
+            border: 3px solid var(--accent);
             box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
-        }
-        
-        .profile-status {
-            position: absolute;
-            bottom: 5px;
-            right: 5px;
-            width: 20px;
-            height: 20px;
-            background: var(--success);
-            border-radius: 50%;
-            border: 3px solid var(--bg-secondary);
         }
         
         .profile-info {
             flex: 1;
         }
         
+        /* Profile Name - No Color Gradient */
         .profile-name {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             font-weight: 700;
             margin-bottom: 8px;
-            background: linear-gradient(to right, var(--text-primary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--text-primary); /* Plain white color */
         }
         
         .profile-details {
             display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            margin-top: 12px;
+            flex-direction: column;
+            gap: 6px;
         }
         
         .profile-detail-item {
@@ -147,13 +131,14 @@
         
         .profile-icon {
             color: var(--accent);
-            font-size: 1.1rem;
+            font-size: 1rem;
+            width: 20px;
         }
         
         .user-id-badge {
             background: var(--bg-tertiary);
-            padding: 6px 12px;
-            border-radius: 20px;
+            padding: 4px 10px;
+            border-radius: 12px;
             font-size: 0.85rem;
             color: var(--text-tertiary);
             display: inline-flex;
@@ -209,6 +194,27 @@
             .form-grid {
                 grid-template-columns: 1fr;
             }
+            
+            .user-profile {
+                flex-direction: row; /* Always row layout */
+                align-items: center;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .user-profile {
+                flex-direction: row;
+                align-items: flex-start;
+            }
+            
+            .profile-pic {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .profile-name {
+                font-size: 1.3rem;
+            }
         }
         
         /* Input Styles */
@@ -263,17 +269,18 @@
             gap: 6px;
         }
         
-        /* Updated Image Upload Section */
+        /* Updated Image Upload Section - Simple Style */
         .image-upload-section {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 15px;
         }
         
         .upload-controls {
             display: flex;
-            gap: 12px;
             flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
         }
         
         .upload-btn {
@@ -288,7 +295,6 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
         }
         
         .upload-btn:hover {
@@ -296,11 +302,23 @@
             box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
         }
         
+        .image-count-badge {
+            background: var(--bg-tertiary);
+            padding: 10px 16px;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid var(--border);
+        }
+        
         .view-btn {
             padding: 14px 24px;
-            background: var(--bg-tertiary);
-            color: var(--text-primary);
-            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--accent);
+            border: 2px solid var(--accent);
             border-radius: 12px;
             cursor: pointer;
             font-weight: 600;
@@ -311,8 +329,18 @@
         }
         
         .view-btn:hover {
-            background: var(--bg-secondary);
-            border-color: var(--accent);
+            background: var(--accent);
+            color: white;
+        }
+        
+        .view-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .view-btn:disabled:hover {
+            background: transparent;
+            color: var(--accent);
         }
         
         .upload-info {
@@ -324,58 +352,9 @@
             gap: 8px;
         }
         
+        /* No preview container - hidden */
         .image-preview-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-top: 10px;
-            min-height: 120px;
-        }
-        
-        .image-preview-item {
-            position: relative;
-            width: 100px;
-            height: 100px;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 12px var(--shadow);
-            border: 2px solid var(--border);
-            transition: all 0.3s;
-        }
-        
-        .image-preview-item:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 20px var(--shadow);
-            border-color: var(--accent);
-        }
-        
-        .preview-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .remove-image {
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            background: var(--danger);
-            color: white;
-            border: none;
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.8rem;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-        
-        .image-preview-item:hover .remove-image {
-            opacity: 1;
+            display: none;
         }
         
         /* Payment Method Section */
@@ -444,7 +423,6 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
         }
         
         .add-btn:hover {
@@ -531,38 +509,31 @@
             color: white;
         }
         
-        /* Sell Button */
+        /* Sell Button - Inside Container */
         .sell-btn-container {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(to top, rgba(15, 23, 42, 0.95), transparent);
-            padding: 30px 20px;
-            z-index: 100;
+            margin: 40px 0;
             display: flex;
             justify-content: center;
-            align-items: center;
         }
         
         .sell-btn {
             background: var(--success-gradient);
             color: white;
             border: none;
-            padding: 22px 50px;
+            padding: 20px 45px;
             border-radius: 16px;
             font-size: 1.3rem;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.3s;
             box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
-            width: 100%;
-            max-width: 900px;
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 12px;
             letter-spacing: 0.5px;
+            width: 100%;
+            max-width: 500px;
         }
         
         .sell-btn:hover {
@@ -630,42 +601,71 @@
             max-width: 90%;
             max-height: 90%;
             position: relative;
+            background: var(--bg-card);
+            border-radius: 16px;
+            overflow: hidden;
         }
         
-        .modal-image {
-            max-width: 100%;
-            max-height: 80vh;
+        .modal-header {
+            padding: 20px;
+            background: var(--bg-secondary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .modal-title {
+            font-size: 1.3rem;
+            color: var(--text-primary);
+        }
+        
+        .modal-images {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+        
+        .modal-image-item {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 15px;
+            background: rgba(30, 41, 59, 0.5);
             border-radius: 12px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border);
+        }
+        
+        .modal-image-item img {
+            width: 100%;
+            max-height: 300px;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+        
+        .image-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
         }
         
         .close-modal {
-            position: absolute;
-            top: 15px;
-            right: 15px;
             background: var(--danger);
             color: white;
             border: none;
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-        }
-        
-        .image-counter {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 0.9rem;
         }
         
         /* Success Popup */
@@ -757,52 +757,28 @@
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
         }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            .profile-row {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .profile-details {
-                justify-content: center;
-            }
-            
-            .profile-name {
-                font-size: 1.5rem;
-            }
-            
-            .sell-btn {
-                padding: 18px 30px;
-                font-size: 1.2rem;
-            }
-        }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- User Profile Section - Updated Layout -->
+        <!-- User Profile Section - Fixed Layout -->
         <div class="user-profile">
-            <div class="profile-row">
-                <div class="profile-pic-container">
-                    <img id="profilePic" class="profile-pic" src="https://via.placeholder.com/100" alt="প্রোফাইল ছবি">
-                    <div class="profile-status"></div>
-                </div>
-                <div class="profile-info">
-                    <h1 class="profile-name" id="userName">লোড হচ্ছে...</h1>
-                    <div class="profile-details">
-                        <div class="profile-detail-item">
-                            <i class="fas fa-user profile-icon"></i>
-                            <span id="userUsername">@username</span>
-                        </div>
-                        <div class="profile-detail-item">
-                            <i class="fas fa-id-card profile-icon"></i>
-                            <span class="user-id-badge">
-                                <i class="fas fa-hashtag"></i>
-                                <span id="userId">লোড হচ্ছে...</span>
-                            </span>
-                        </div>
+            <div class="profile-pic-container">
+                <img id="profilePic" class="profile-pic" src="https://via.placeholder.com/80" alt="প্রোফাইল ছবি">
+            </div>
+            <div class="profile-info">
+                <h1 class="profile-name" id="userName">লোড হচ্ছে...</h1>
+                <div class="profile-details">
+                    <div class="profile-detail-item">
+                        <i class="fas fa-user profile-icon"></i>
+                        <span id="userUsername">@username</span>
+                    </div>
+                    <div class="profile-detail-item">
+                        <i class="fas fa-id-card profile-icon"></i>
+                        <span class="user-id-badge">
+                            <i class="fas fa-hashtag"></i>
+                            <span id="userId">লোড হচ্ছে...</span>
+                        </span>
                     </div>
                 </div>
             </div>
@@ -828,7 +804,7 @@
                     </div>
                 </div>
                 
-                <!-- Screenshot Upload - Updated -->
+                <!-- Screenshot Upload - Simple Style -->
                 <div class="input-group">
                     <label class="input-label">
                         <i class="fas fa-images"></i>
@@ -840,17 +816,18 @@
                                 <i class="fas fa-upload"></i>
                                 ইমেজ আপলোড
                             </button>
+                            <div class="image-count-badge" id="imageCountBadge">
+                                <i class="fas fa-image"></i>
+                                <span id="imageCount">০টি ইমেজ</span>
+                            </div>
                             <button id="viewImagesBtn" class="view-btn" disabled>
                                 <i class="fas fa-eye"></i>
-                                ভিউ ইমেজ
+                                প্রিভিউ
                             </button>
                         </div>
                         <div class="upload-info">
                             <i class="fas fa-info-circle"></i>
-                            সর্বোচ্চ ৫টি ইমেজ আপলোড করতে পারবেন
-                        </div>
-                        <div class="image-preview-container" id="imagePreviewContainer">
-                            <!-- Image previews will appear here -->
+                            সর্বোচ্চ ৫টি ইমেজ আপলোড করতে পারবেন (প্রতিটি 5MB পর্যন্ত)
                         </div>
                     </div>
                     <input type="file" id="imageUpload" accept="image/*" multiple style="display: none;">
@@ -871,7 +848,7 @@
                     <option value="nagad">নগদ</option>
                     <option value="rocket">রকেট</option>
                 </select>
-                <input type="text" id="paymentNumber" class="input-field number-input" placeholder="মোবাইল নম্বর লিখুন">
+                <input type="text" id="paymentNumber" class="input-field number-input" placeholder="মোবাইল নম্বর লিখুন (01XXXXXXXXX)">
                 <button id="addMethodBtn" class="add-btn">
                     <i class="fas fa-plus"></i>
                     যোগ করুন
@@ -883,6 +860,14 @@
             </div>
         </div>
         
+        <!-- Sell Button Inside Container -->
+        <div class="sell-btn-container">
+            <button id="sellBtn" class="sell-btn">
+                <i class="fas fa-paper-plane"></i>
+                কয়েন বিক্রয় করুন
+            </button>
+        </div>
+        
         <!-- Loading Indicator -->
         <div class="loading" id="loadingIndicator">
             <div class="loading-spinner"></div>
@@ -890,22 +875,18 @@
         </div>
     </div>
     
-    <!-- Sell Button Container -->
-    <div class="sell-btn-container">
-        <button id="sellBtn" class="sell-btn">
-            <i class="fas fa-paper-plane"></i>
-            কয়েন বিক্রয় করুন
-        </button>
-    </div>
-    
     <!-- Image Viewer Modal -->
     <div class="image-viewer-modal" id="imageViewerModal">
         <div class="modal-content">
-            <img class="modal-image" id="modalImage" src="" alt="">
-            <button class="close-modal" id="closeModal">
-                <i class="fas fa-times"></i>
-            </button>
-            <div class="image-counter" id="imageCounter">1 / 1</div>
+            <div class="modal-header">
+                <h3 class="modal-title">আপলোডকৃত ইমেজসমূহ</h3>
+                <button class="close-modal" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-images" id="modalImagesContainer">
+                <!-- Images will be shown here -->
+            </div>
         </div>
     </div>
     
@@ -930,14 +911,13 @@
     <script>
         // টেলিগ্রাম বট কনফিগারেশন
         const BOT_TOKEN = "8070500043:AAGaBsDKmIE7usn9iJP_4liwCn4d-gv2aSY";
-        const CHANNEL_ID = "-1002654345940";
+        const CHANNEL_ID = "-1002654345940"; // চ্যানেল আইডি (নাম্বার ফরমেট)
         
         // টেলিগ্রাম Web App ইনিশিয়ালাইজেশন
         const tg = window.Telegram.WebApp;
         
         // গ্লোবাল ভেরিয়েবল
         let uploadedImages = [];
-        let currentImageIndex = 0;
         let paymentMethods = [];
         
         document.addEventListener('DOMContentLoaded', function() {
@@ -960,11 +940,11 @@
             
             if (user) {
                 // ইউজার প্রোফাইল আপডেট করা
-                document.getElementById('userName').textContent = 
-                    `${user.first_name || ''} ${user.last_name || ''}`.trim() || 'নাম নেই';
+                const userName = `${user.first_name || ''} ${user.last_name || ''}`.trim() || 'নাম নেই';
+                document.getElementById('userName').textContent = userName;
                 
-                document.getElementById('userUsername').textContent = 
-                    user.username ? `@${user.username}` : '@username নেই';
+                const userUsername = user.username ? `@${user.username}` : '@username নেই';
+                document.getElementById('userUsername').textContent = userUsername;
                 
                 document.getElementById('userId').textContent = user.id;
                 
@@ -1058,10 +1038,12 @@
                 reader.onload = function(e) {
                     uploadedImages.push({
                         src: e.target.result,
-                        name: file.name
+                        name: file.name,
+                        size: formatFileSize(file.size),
+                        type: file.type
                     });
                     
-                    updateImagePreviews();
+                    updateImageCount();
                     
                     // ভিউ বাটন সক্রিয় করা
                     if (uploadedImages.length > 0) {
@@ -1076,52 +1058,49 @@
             event.target.value = '';
         }
         
-        function updateImagePreviews() {
-            const container = document.getElementById('imagePreviewContainer');
-            container.innerHTML = '';
-            
-            uploadedImages.forEach((image, index) => {
-                const previewItem = document.createElement('div');
-                previewItem.className = 'image-preview-item';
-                previewItem.innerHTML = `
-                    <img src="${image.src}" class="preview-image" alt="আপলোড করা ইমেজ">
-                    <button class="remove-image" data-index="${index}">
-                        <i class="fas fa-times"></i>
-                    </button>
-                `;
-                
-                container.appendChild(previewItem);
-            });
-            
-            // রিমুভ বাটনে ইভেন্ট যোগ
-            document.querySelectorAll('.remove-image').forEach(btn => {
-                btn.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    const index = parseInt(this.getAttribute('data-index'));
-                    removeImage(index);
-                });
-            });
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
         }
         
-        function removeImage(index) {
-            uploadedImages.splice(index, 1);
-            updateImagePreviews();
+        function updateImageCount() {
+            const count = uploadedImages.length;
+            document.getElementById('imageCount').textContent = `${count}টি ইমেজ`;
             
-            if (uploadedImages.length === 0) {
-                document.getElementById('viewImagesBtn').disabled = true;
+            if (count > 0) {
+                document.getElementById('imageCountBadge').style.background = 'var(--accent-gradient)';
+                document.getElementById('imageCountBadge').style.color = 'white';
+            } else {
+                document.getElementById('imageCountBadge').style.background = 'var(--bg-tertiary)';
+                document.getElementById('imageCountBadge').style.color = 'var(--text-primary)';
             }
         }
         
-        function openImageViewer(index = 0) {
+        function openImageViewer() {
             if (uploadedImages.length === 0) return;
             
-            currentImageIndex = index;
             const modal = document.getElementById('imageViewerModal');
-            const modalImage = document.getElementById('modalImage');
-            const imageCounter = document.getElementById('imageCounter');
+            const container = document.getElementById('modalImagesContainer');
             
-            modalImage.src = uploadedImages[currentImageIndex].src;
-            imageCounter.textContent = `${currentImageIndex + 1} / ${uploadedImages.length}`;
+            // কন্টেইনার ক্লিয়ার করা
+            container.innerHTML = '';
+            
+            // প্রতিটি ইমেজ যোগ করা
+            uploadedImages.forEach((image, index) => {
+                const imageItem = document.createElement('div');
+                imageItem.className = 'modal-image-item';
+                imageItem.innerHTML = `
+                    <img src="${image.src}" alt="আপলোড করা ইমেজ ${index + 1}">
+                    <div class="image-info">
+                        <span>ইমেজ ${index + 1}: ${image.name}</span>
+                        <span>সাইজ: ${image.size}</span>
+                    </div>
+                `;
+                container.appendChild(imageItem);
+            });
             
             modal.style.display = 'flex';
             document.body.style.overflow = 'hidden';
@@ -1152,8 +1131,10 @@
                 return;
             }
             
-            if (!number || !/^01[3-9]\d{8}$/.test(number)) {
-                tg.showAlert('দয়া করে একটি সঠিক মোবাইল নম্বর লিখুন (01XXXXXXXXX)');
+            // মোবাইল নম্বর ভ্যালিডেশন (বাংলাদেশী ফরম্যাট)
+            const mobileRegex = /^01[3-9]\d{8}$/;
+            if (!mobileRegex.test(number)) {
+                tg.showAlert('দয়া করে একটি সঠিক মোবাইল নম্বর লিখুন (01XXXXXXXXX ফরম্যাটে)');
                 return;
             }
             
@@ -1268,7 +1249,8 @@
             const loadingTexts = [
                 "ডেটা প্রসেসিং...",
                 "টেলিগ্রামে তথ্য পাঠানো হচ্ছে...",
-                "সাকসেস মেসেজ প্রস্তুত করা হচ্ছে...",
+                "ইমেজ আপলোড হচ্ছে...",
+                "ইউজারকে মেসেজ পাঠানো হচ্ছে...",
                 "প্রক্রিয়া সম্পন্ন হচ্ছে..."
             ];
             
@@ -1280,18 +1262,25 @@
                 } else {
                     clearInterval(textInterval);
                 }
-            }, 1500);
+            }, 1000);
             
             try {
-                // টেলিগ্রামে মেসেজ পাঠানো
-                const success = await sendToTelegram({
+                // টেলিগ্রাম চ্যানেলে মেসেজ পাঠানো
+                const channelSuccess = await sendToTelegramChannel({
                     ...userData,
+                    coinAmount,
+                    paymentMethods,
+                    images: uploadedImages
+                });
+                
+                // ইউজার ইনবক্সে মেসেজ পাঠানো
+                const userSuccess = await sendToUserInbox(userData.userId, {
                     coinAmount,
                     paymentMethods,
                     imageCount: uploadedImages.length
                 });
                 
-                if (success) {
+                if (channelSuccess && userSuccess) {
                     // ইউজারকে সাকসেস মেসেজ
                     tg.showAlert('আপনার কয়েন বিক্রয় রিকুয়েস্ট সফলভাবে জমা হয়েছে!');
                     
@@ -1304,7 +1293,7 @@
                     // ফর্ম রিসেট
                     resetForm();
                 } else {
-                    throw new Error('টেলিগ্রামে মেসেজ পাঠানো যায়নি');
+                    throw new Error('তথ্য পাঠানো যায়নি');
                 }
             } catch (error) {
                 console.error('Error:', error);
@@ -1313,9 +1302,10 @@
             }
         }
         
-        async function sendToTelegram(data) {
-            // টেলিগ্রাম মেসেজ ফরম্যাট
-            const messageText = `
+        async function sendToTelegramChannel(data) {
+            try {
+                // টেলিগ্রাম মেসেজ ফরম্যাট
+                const messageText = `
 ✅ *নতুন কয়েন বিক্রয় রিকুয়েস্ট*
 
 👤 *ইউজার তথ্য:*
@@ -1329,14 +1319,121 @@
 📱 *পেমেন্ট মেথড:*
 ${data.paymentMethods.map(m => `• ${m.methodName}: \`${m.number}\``).join('\n')}
 
-🖼️ *স্ক্রিনশট:* ${data.imageCount} টি ইমেজ
-            `;
-            
-            // এখানে বাস্তব API কল করবেন
-            // এটি একটি উদাহরণ
-            await new Promise(resolve => setTimeout(resolve, 3000));
-            
-            return true; // সিমুলেশনের জন্য true রিটার্ন
+🖼️ *স্ক্রিনশট:* ${data.images.length} টি ইমেজ
+                `;
+                
+                // টেলিগ্রাম API এ মেসেজ পাঠানো
+                const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        chat_id: CHANNEL_ID,
+                        text: messageText,
+                        parse_mode: 'Markdown'
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.ok) {
+                    console.log('Channel message sent successfully');
+                    
+                    // যদি ইমেজ থাকে তাহলে আলাদাভাবে পাঠানো
+                    if (data.images.length > 0) {
+                        await sendImagesToChannel(data);
+                    }
+                    
+                    return true;
+                } else {
+                    console.error('Failed to send to channel:', result);
+                    return false;
+                }
+            } catch (error) {
+                console.error('Error sending to channel:', error);
+                return false;
+            }
+        }
+        
+        async function sendImagesToChannel(data) {
+            try {
+                // প্রতিটি ইমেজ পাঠানো
+                for (let i = 0; i < data.images.length; i++) {
+                    const image = data.images[i];
+                    const caption = i === 0 ? 
+                        `ইমেজ ${i+1}/${data.images.length}\nইউজার: ${data.userName} (@${data.userUsername || 'N/A'})` : 
+                        `ইমেজ ${i+1}/${data.images.length}`;
+                    
+                    // Base64 ইমেজ পাঠানো
+                    await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            chat_id: CHANNEL_ID,
+                            photo: image.src,
+                            caption: caption
+                        })
+                    });
+                    
+                    // ডিলে দেওয়া (রেট লিমিট এড়ানোর জন্য)
+                    await new Promise(resolve => setTimeout(resolve, 500));
+                }
+                
+                console.log('All images sent to channel');
+                return true;
+            } catch (error) {
+                console.error('Error sending images:', error);
+                return false;
+            }
+        }
+        
+        async function sendToUserInbox(userId, data) {
+            try {
+                // ইউজার ইনবক্সে মেসেজ পাঠানো
+                const messageText = `
+🎉 *কয়েন বিক্রয় সফল!*
+
+আপনার কয়েন বিক্রয় রিকুয়েস্ট সফলভাবে গ্রহণ করা হয়েছে।
+
+💰 *বিক্রয় পরিমাণ:* ${data.coinAmount} কয়েন
+📱 *পেমেন্ট মেথড:* ${data.paymentMethods.length} টি
+🖼️ *স্ক্রিনশট:* ${data.imageCount} টি
+
+আমাদের টিম শীঘ্রই আপনার সাথে যোগাযোগ করবে এবং পেমেন্ট সম্পন্ন করবে।
+
+ধন্যবাদান্তে,
+কয়েন টিম
+                `;
+                
+                // টেলিগ্রাম API ব্যবহার করে ইউজার ইনবক্সে মেসেজ
+                const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        chat_id: userId,
+                        text: messageText,
+                        parse_mode: 'Markdown'
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.ok) {
+                    console.log('User inbox message sent successfully');
+                    return true;
+                } else {
+                    console.error('Failed to send to user inbox:', result);
+                    return false;
+                }
+            } catch (error) {
+                console.error('Error sending to user inbox:', error);
+                return false;
+            }
         }
         
         function startLoading() {
@@ -1367,7 +1464,7 @@ ${data.paymentMethods.map(m => `• ${m.methodName}: \`${m.number}\``).join('\n'
             
             // ইমেজ রিসেট
             uploadedImages = [];
-            document.getElementById('imagePreviewContainer').innerHTML = '';
+            updateImageCount();
             document.getElementById('viewImagesBtn').disabled = true;
             
             // পেমেন্ট মেথড রিসেট
